@@ -1,4 +1,4 @@
-package com.posdataservice.POSDataservice.model;
+package com.posdataservice.model;
 
 
 import org.springframework.data.annotation.Id;
