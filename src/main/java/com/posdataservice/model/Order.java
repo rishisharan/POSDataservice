@@ -1,4 +1,4 @@
-package com.posdataservice.POSDataservice.model;
+package com.posdataservice.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -19,7 +19,7 @@ import lombok.Setter;
 public class Order {
 
 	@Id
-	private String orderId;
+	private String id;
 	private List<Item> items;
 	private Customer customer;
 	private BigDecimal total;

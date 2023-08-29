@@ -1,9 +1,11 @@
-package com.posdataservice.POSDataservice.repository;
+package com.posdataservice.repository;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.stereotype.Repository;
 
-import com.posdataservice.POSDataservice.model.Order;
+import com.posdataservice.model.Order;
 
+@Repository
 public interface OrderRepository extends MongoRepository<Order, String>{
 
 }

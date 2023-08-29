@@ -1,4 +1,4 @@
-package com.posdataservice.POSDataservice.model;
+package com.posdataservice.model;
 
 import java.math.BigDecimal;
 
@@ -6,9 +6,13 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Data
 @Document
+@Getter
+@Setter
 public class Item {
 
 	@Id
