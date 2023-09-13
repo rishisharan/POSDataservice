@@ -35,6 +35,7 @@ public class Item {
 		this.isTaxable = isTaxable;
 		this.isAvailable = isAvailable;
 	}
-	
+
+
 
 }

@@ -5,3 +5,17 @@ JDK: OpenJDK17
 Eclipse plugins
 
 JRE Discovery 0.0.7 plugin in required
+
+For mongodb, please authenticate and add a user
+>use admin
+>db.auth('admin','password');
+
+use admin  // Switch to the 'admin' database
+db.createUser({
+  user: "your_username",
+  pwd: "your_password",
+  roles: [
+    { role: "readWrite", db: "your_database" },
+    // Add more roles as needed
+  ]
+})

@@ -24,7 +24,7 @@ import reactor.core.publisher.Flux;
 @RestController
 @RequestMapping("api/v1/items")
 @AllArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3001")
 public class ItemController {
 	
 	@Autowired

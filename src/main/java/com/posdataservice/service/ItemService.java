@@ -26,7 +26,7 @@ public class ItemService {
 	}
 
 	public Item postAnItem(Item item) {
-		LOGGER.info("Creating an item ", item.getItemId() , "title ",item.getTitle(), "price ", item.getPrice());
+//		LOGGER.info("Creating an item ", item.getItemId() , "title ",item.getTitle(), "price ", item.getPrice());
 		return itemRepository.insert(item);
 	}
 

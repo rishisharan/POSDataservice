@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -17,6 +18,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,8 +34,6 @@ import com.posdataservice.repository.RoleRepository;
 import com.posdataservice.repository.UserRepository;
 import com.posdataservice.security.JwtUtils;
 import com.posdataservice.service.UserDetailsImpl;
-
-import jakarta.annotation.security.RolesAllowed;
 
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -56,7 +56,7 @@ public class AuthController {
 	@Autowired
 	JwtUtils jwtUtils;
 
-	@PostMapping("/signin")
+	@PostMapping("/login")
 	public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
 
 		Authentication authentication = authenticationManager.authenticate(
@@ -78,7 +78,6 @@ public class AuthController {
 	}
 
 	@PostMapping("/signup")
-	@RolesAllowed("ROLE_ADMIN")
 	public ResponseEntity<?> registerUser(@RequestBody SignupRequest signUpRequest) {
 		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
 			return ResponseEntity
@@ -105,16 +104,13 @@ public class AuthController {
 					.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 			roles.add(userRole);
 		} else {
-			for(int i = 0;i<1;i++) {
-				System.out.println(strRoles);
-			}
+			
 			strRoles.forEach(role -> {
 				switch (role.getName()) {
 				case ROLE_ADMIN:
 					Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
 							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 					roles.add(adminRole);
-
 					break;
 				case ROLE_MODERATOR:
 					Role modRole = roleRepository.findByName(ERole.ROLE_MODERATOR)
@@ -133,5 +129,24 @@ public class AuthController {
 		userRepository.save(user);
 
 		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+	}
+	
+	@PutMapping("/updateRole")
+	@PreAuthorize("hasRole('ADMIN')")
+	public ResponseEntity<?> updateRole(@RequestBody Users user) {
+		
+
+		if (!userRepository.existsByEmail(user.getEmail())) {
+			return ResponseEntity
+					.badRequest()
+					.body(new MessageResponse("Error: Email does not exist"));
+		}
+
+		// Create new user's account
+		Users userObject = userRepository.findUserByUsername(user.getUsername());
+		userObject.setRoles(user.getRole());
+		userRepository.save(userObject);
+
+		return ResponseEntity.ok(new MessageResponse("User role updated successfully!"));
 	}
 }
