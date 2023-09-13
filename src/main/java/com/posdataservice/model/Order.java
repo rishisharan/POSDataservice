@@ -38,5 +38,10 @@ public class Order {
 		this.orderCreationTime = orderCreationTime;
 	}
 
+	public void setOrderStatus(OrderStatus status) {
+		this.orderStatus = status;
+		
+	}
+
 
 }

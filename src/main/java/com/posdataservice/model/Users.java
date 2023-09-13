@@ -18,6 +18,8 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class Users implements UserDetails{
 	
+
+
 	@Id
 	private String id;
 
@@ -38,6 +40,8 @@ public class Users implements UserDetails{
 		this.email = email;
 		this.password = password;
 	}
+	
+	public Users() {}
 
 	public Users(String id, String username, String email, String password,
 			Collection<? extends GrantedAuthority> authorities) {
@@ -60,6 +64,7 @@ public class Users implements UserDetails{
 		this.email = email2;
 		this.password = encode;
 	}
+	
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
