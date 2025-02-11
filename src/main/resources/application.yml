@@ -1,0 +1,9 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://rootuser:rootpass@localhost:27017/onlinegrocery?authSource=admin
+
+onlinegrocery:
+ app:
+  jwtSecret: ======================onlinegrocery=Spring===========================
+  jwtExpirationMs: 86400000
