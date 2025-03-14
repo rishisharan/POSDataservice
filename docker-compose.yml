@@ -1,0 +1,31 @@
+services:
+  posdataservice:
+    image: "posdataservice:s4"
+    container_name: posdataservice-ms
+    ports:
+      - "8080:8080"
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+    networks:
+      - app-network
+  mongodb:
+    image: "mongo:latest"
+    container_name: mongo-db
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: rootuser
+      MONGO_INITDB_ROOT_PASSWORD: rootpass
+      MONGO_INITDB_DATABASE: onlinegrocery
+      MONGO_INITDB_AUTH_SOURCE: admin
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+    networks:
+      - app-network
+networks:
+  app-network:
+    driver: "bridge"

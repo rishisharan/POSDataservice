@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.posdataservice</groupId>
-	<artifactId>POSDataservice</artifactId>
+	<artifactId>posdataservice</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>POSDataservice</name>
@@ -110,6 +110,19 @@
 					</excludes>
 				</configuration>
 			</plugin>
+			<plugin>
+		        <groupId>com.google.cloud.tools</groupId>
+		        <artifactId>jib-maven-plugin</artifactId>
+		        <version>3.4.4</version>
+		        <configuration>
+		       	  <from>
+            		<image>openjdk:17.0.2-jdk-slim</image>  <!-- Use the correct image -->
+        		  </from>
+		          <to>
+		            <image>onlinegrocery/${project.artifactId}:s1</image>
+		          </to>
+		        </configuration>
+      		</plugin>
 		</plugins>
 	</build>
 	<repositories>

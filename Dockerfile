@@ -1,9 +1,9 @@
-FROM openjdk:17-jdk-slim
+FROM openjdk:17.0.2-jdk-slim
 
 MAINTAINER onlinegrocery
 
-COPY target/POSDataservice-0.0.1-SNAPSHOT.jar POSDataservice.0.0.1-SNAPSHOT.jar
+COPY target/posdataservice-0.0.1-SNAPSHOT.jar posdataservice-0.0.1-SNAPSHOT.jar
 
-RUN chmod 755 /POSDataservice.0.0.1-SNAPSHOT.jar
+#RUN chmod 755 /posdataservice-0.0.1-SNAPSHOT.jar
 
-ENTRYPOINT [ "java","-jar", "/POSDataservice.0.0.1-SNAPSHOT.jar" ]
+ENTRYPOINT [ "java","-jar", "/posdataservice-0.0.1-SNAPSHOT.jar" ]
