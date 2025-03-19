@@ -7,7 +7,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -40,6 +41,9 @@ import com.posdataservice.service.UserDetailsImpl;
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
+	
+	private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
+	
 	@Autowired
 	AuthenticationManager authenticationManager;
 
@@ -58,7 +62,8 @@ public class AuthController {
 
 	@PostMapping("/login")
 	public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
-
+	
+		logger.info("Authenticating user request "+loginRequest.getUsername());
 		Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
@@ -79,6 +84,7 @@ public class AuthController {
 
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@RequestBody SignupRequest signUpRequest) {
+		logger.info("Registering user "+signUpRequest.getUsername());
 		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
 			return ResponseEntity
 					.badRequest()
@@ -135,7 +141,7 @@ public class AuthController {
 	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<?> updateRole(@RequestBody Users user) {
 		
-
+		logger.info("Updating role "+user.getId());
 		if (!userRepository.existsByEmail(user.getEmail())) {
 			return ResponseEntity
 					.badRequest()
