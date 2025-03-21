@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: posdataservice
   data:
     mongodb:
       uri: mongodb://rootuser:rootpass@mongodb:27017/onlinegrocery?authSource=admin
@@ -8,6 +10,9 @@ cloud:
       payments:
         instances:
           - url: http://localhost:8082
+metrics:
+ tags:
+  application: ${spring.application.name}
 onlinegrocery:
  app:
   jwtSecret: ======================onlinegrocery=Spring===========================
